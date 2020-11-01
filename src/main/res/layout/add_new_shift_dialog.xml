@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/custom_home_item_view_background"
+            android:padding="@dimen/margin_medium">
+
+            <TextView
+                android:id="@+id/addNewShiftHeadingText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/archivo_black"
+                android:text="Add new Shift Type"
+                android:textColor="?themePrimaryComplimentaryColor"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/addNewShiftTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Shift title here"
+                android:inputType="text"
+                android:textColor="?themePrimaryComplimentaryColor"
+                app:layout_constraintStart_toStartOf="@id/verticalStartGuideline"
+                app:layout_constraintTop_toBottomOf="@id/addNewShiftHeadingText"
+                tools:text="Project title..." />
+
+            <TextView
+                android:id="@+id/chooseColorTextId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/archivo_black"
+                android:text="Choose Color"
+                app:layout_constraintStart_toStartOf="@id/addNewShiftTitle"
+                app:layout_constraintTop_toBottomOf="@id/addNewShiftTitle" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/colorListViewId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                app:layout_constraintStart_toStartOf="@id/chooseColorTextId"
+                app:layout_constraintTop_toBottomOf="@id/chooseColorTextId" />
+
+            <TextView
+                android:id="@+id/addButtonId"
+                style="@style/TextViewAsButtonStyle"
+                android:text="Add"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/colorListViewId"
+                app:layout_constraintTop_toBottomOf="@id/colorListViewId" />
+
+            <TextView
+                android:id="@+id/cancelButtonId"
+                style="@style/TextViewAsButtonStyle"
+                android:text="Cancel"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/addButtonId"
+                app:layout_constraintTop_toBottomOf="@id/colorListViewId" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/verticalStartGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/margin_small" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/verticalEndGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/margin_small" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/horizontalStartGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="@dimen/margin_small" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/horizontalEndGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_end="@dimen/margin_small" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+</layout>

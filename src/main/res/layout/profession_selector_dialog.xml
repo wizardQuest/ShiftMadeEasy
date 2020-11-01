@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/custom_home_item_view_background"
+        android:padding="@dimen/margin_medium">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/professionRecyclerViewId"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_margin="@dimen/margin_small"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/setProfessionButtonId"/>
+
+        <Button
+            android:id="@+id/setProfessionButtonId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/blue_outline_background"
+            android:layout_marginTop="@dimen/margin_extra_large"
+            android:text="Set Profession"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/professionRecyclerViewId" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="appPrimaryColor">@color/black</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="appSecondaryColor">@color/colorAccent</item>
+        <item name="windowBackground">@color/light_theme_background_color</item>
+        <item name="notesListHeadingColor">@color/black</item>
+        <item name="bottomSheetBackgroundColor">@color/white</item>
+        <item name="primaryButtonColor">@color/primaryButtonColor</item>
+        <item name="themePrimaryComplimentaryColor">@color/black</item>
+        <item name="customHomeItemViewBackgroundColor">@color/lightGrey</item>
+        <item name="themeSecondaryComplimentaryColor">@color/lightGrey</item>
+    </style>
+</resources>

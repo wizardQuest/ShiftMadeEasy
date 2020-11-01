@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Bottom sheet color-->
+    <attr name="themeColor" format="reference" />
+    <attr name="appPrimaryColor" format="reference" />
+    <attr name="appSecondaryColor" format="reference" />
+    <attr name="windowBackground" format="color" />
+    <attr name="notesListHeadingColor" format="reference" />
+    <attr name="bottomSheetBackgroundColor" format="color" />
+    <attr name="primaryButtonColor" format="reference" />
+    <attr name="themePrimaryComplimentaryColor" format="reference" />
+    <attr name="themeSecondaryComplimentaryColor" format="reference" />
+    <attr name="customHomeItemViewBackgroundColor" format="reference" />
+</resources>

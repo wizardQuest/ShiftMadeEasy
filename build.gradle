@@ -1,0 +1,114 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    defaultConfig {
+        applicationId "com.pq.shiftmadeeasy"
+        minSdkVersion 22
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+    kapt {
+        generateStubs = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation 'androidx.fragment:fragment-ktx:1.2.0-alpha01'
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    // Annotation processor
+    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+
+    //Timber Logging Library
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    //Material
+    implementation "com.google.android.material:material:$material_version"
+
+    // debugImplementation because LeakCanary should only run in debug builds.
+    //https://square.github.io/leakcanary/upgrading-to-leakcanary-2.0/
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.3'
+
+    //Room Version
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    // For Kotlin use kapt instead of annotationProcessor
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:$roomVersion"
+    // optional - RxJava support for Room
+    implementation "androidx.room:room-rxjava2:$roomVersion"
+    // optional - Guava support for Room, including Optional and ListenableFuture
+    implementation "androidx.room:room-guava:$roomVersion"
+    // Test helpers
+    testImplementation "androidx.room:room-testing:$roomVersion"
+    //HILT-Dagger
+    implementation "com.google.dagger:hilt-android:2.28-alpha"
+    kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
+    //Coroutines LiveData Scope
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    //Kotlin
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3"
+    //RecyclerView
+    implementation "androidx.recyclerview:recyclerview:$recycler_view_version"
+    // Card View
+    implementation "androidx.cardview:cardview:$cardview_version"
+    //
+    kapt 'com.android.databinding:compiler:3.0.1'
+    // Navigation
+    implementation "android.arch.navigation:navigation-fragment-ktx:$version_navigation"
+    implementation "android.arch.navigation:navigation-ui-ktx:$version_navigation"
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    // Preferences DataStore
+    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha01"
+    // Proto DataStore
+    implementation "androidx.datastore:datastore-core:1.0.0-alpha01"
+    //Preferences(For App Settings)
+    implementation "androidx.preference:preference:1.1.0"
+    implementation 'com.applandeo:material-calendar-view:1.8.0-rc01'
+}

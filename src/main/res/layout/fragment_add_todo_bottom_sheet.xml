@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+
+        <variable
+            name="repositoryViewModel"
+            type="com.pq.shiftmadeeasy.ui.viewmodels.RepositoryViewModel" />
+
+        <variable
+            name="viewModel"
+            type="com.pq.shiftmadeeasy.ui.addtodobottomsheet.AddTodoTaskViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/bottom_sheet_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bottom_sheet_rounded_corner_design"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/add_todo_bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin_large"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="64dp"
+                android:layout_height="2dp"
+                android:background="?themePrimaryComplimentaryColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/addTaskTitleId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_large"
+                android:text="@string/log_work"
+                android:textColor="?themePrimaryComplimentaryColor"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!--DateView-->
+            <TextView
+                android:id="@+id/dateTitleTextId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_extra_large"
+                android:backgroundTint="?appSecondaryColor"
+                android:paddingStart="@dimen/margin_extra_small"
+                android:text="@string/enter_date_text"
+                android:textColor="?themePrimaryComplimentaryColor"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/addTaskTitleId" />
+
+            <TextView
+                android:id="@+id/dateDisplayTextId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_large"
+                android:background="@drawable/btn_click"
+                android:backgroundTint="?appSecondaryColor"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingVertical="@dimen/margin_small"
+                android:paddingStart="128dp"
+                android:text="@{viewModel.date}"
+                android:textColor="?themePrimaryComplimentaryColor"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/dateTitleTextId"
+                app:layout_constraintTop_toBottomOf="@id/addTaskTitleId" />
+
+            <ImageView
+                android:id="@+id/dateIconId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_date_range"
+                app:layout_constraintBottom_toBottomOf="@+id/dateDisplayTextId"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/dateDisplayTextId" />
+
+            <!--From Time View-->
+            <TextView
+                android:id="@+id/fromTimeTitleId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_large"
+                android:backgroundTint="?appSecondaryColor"
+                android:paddingStart="@dimen/margin_extra_small"
+                android:text="@string/enter_from_time"
+                android:textColor="?themePrimaryComplimentaryColor"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dateTitleTextId" />
+
+            <TextView
+                android:id="@+id/fromTimeDisplayId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_large"
+                android:background="@drawable/btn_click"
+                android:backgroundTint="?appSecondaryColor"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingVertical="@dimen/margin_small"
+                android:paddingStart="128dp"
+                android:text="@{viewModel.fromTime}"
+                android:textColor="?themePrimaryComplimentaryColor"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/fromTimeTitleId"
+                app:layout_constraintTop_toBottomOf="@id/dateTitleTextId" />
+
+            <ImageView
+                android:id="@+id/fromTimeIconId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/margin_extra_small"
+                android:src="@drawable/ic_schedule_button"
+                app:layout_constraintBottom_toBottomOf="@+id/fromTimeDisplayId"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/fromTimeDisplayId" />
+
+            <!--To Time View-->
+            <TextView
+                android:id="@+id/toTimeTitleId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_large"
+                android:backgroundTint="?appSecondaryColor"
+                android:paddingStart="@dimen/margin_extra_small"
+                android:text="@string/enter_to_time"
+                android:textColor="?themePrimaryComplimentaryColor"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fromTimeTitleId" />
+
+            <TextView
+                android:id="@+id/toTimeDisplayId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_large"
+                android:background="@drawable/btn_click"
+                android:backgroundTint="?appSecondaryColor"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingVertical="@dimen/margin_small"
+                android:paddingStart="128dp"
+                android:text="@{viewModel.toTime}"
+                android:textColor="?themePrimaryComplimentaryColor"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/toTimeTitleId"
+                app:layout_constraintTop_toBottomOf="@id/fromTimeTitleId" />
+
+            <ImageView
+                android:id="@+id/toTimeIconId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/margin_extra_small"
+                android:src="@drawable/ic_wall_clock"
+                app:layout_constraintBottom_toBottomOf="@+id/toTimeDisplayId"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/toTimeDisplayId" />
+
+            <!--Task Logged Hours-->
+            <TextView
+                android:id="@+id/taskHoursTitleId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_large"
+                android:text="@string/hours_title"
+                android:textColor="?themePrimaryComplimentaryColor"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toTimeTitleId" />
+
+            <TextView
+                android:id="@+id/taskHoursDisplayId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_large"
+                android:paddingStart="128dp"
+                android:text="@{viewModel.taskLoggedHours}"
+                android:textColor="?themePrimaryComplimentaryColor"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toTimeTitleId"
+                tools:text="01:15 Hrs" />
+
+            <!--Cumulative Logged Hours-->
+            <TextView
+                android:id="@+id/totalHoursTitleId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_large"
+                android:text="@string/cumulative_hours_title"
+                android:textColor="?themePrimaryComplimentaryColor"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/taskHoursTitleId" />
+
+            <Spinner
+                android:id="@+id/taskDestinationSpinnerId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_large"
+                android:paddingVertical="@dimen/margin_small"
+                android:background="@drawable/blue_outline_background"
+                android:popupBackground="@drawable/blue_outline_background"
+                android:spinnerMode="dropdown"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/totalHoursTitleId" />
+
+            <android.widget.Button
+                android:id="@+id/saveButton"
+                style="@style/primaryButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="128dp"
+                android:text="@string/save"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/taskDestinationSpinnerId" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/dateGroupId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:constraint_referenced_ids="dateIconId,dateDisplayTextId" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/fromTimeGroupId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:constraint_referenced_ids="fromTimeIconId,fromTimeDisplayId" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/toTimeGroupId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:constraint_referenced_ids="toTimeIconId, toTimeDisplayId" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

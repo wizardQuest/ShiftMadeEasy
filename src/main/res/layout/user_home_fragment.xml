@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.userhome.UserHomeFragment">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/userImageId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_user_girl"
+                app:layout_constraintStart_toStartOf="@+id/verticalStartGuideline"
+                app:layout_constraintTop_toTopOf="@+id/horizontalStartGuideline" />
+
+            <TextView
+                android:id="@+id/userGreetingId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_extra_small"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="Hi Monika sup!!!"
+                android:maxLines="1"
+                android:textColor="?attr/themePrimaryComplimentaryColor"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintStart_toEndOf="@+id/userImageId"
+                app:layout_constraintTop_toTopOf="@+id/horizontalStartGuideline" />
+
+            <ImageView
+                android:id="@+id/calendarIconId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_date_range"
+                app:layout_constraintEnd_toStartOf="@+id/optionsIconID"
+                android:layout_marginEnd="@dimen/margin_medium"
+                app:layout_constraintTop_toTopOf="@+id/horizontalStartGuideline" />
+
+            <ImageView
+                android:id="@+id/optionsIconID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_more_vert"
+                app:layout_constraintEnd_toStartOf="@+id/verticalEndGuideline"
+                app:layout_constraintTop_toTopOf="@+id/horizontalStartGuideline" />
+
+            <TextView
+                android:id="@+id/titleText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="24dp"
+                android:text="Tasks"
+                android:textColor="?attr/themePrimaryComplimentaryColor"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                app:layout_constraintTop_toBottomOf="@id/userGreetingId"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/taskRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:paddingBottom="40dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/verticalStartGuideline"
+                app:layout_constraintTop_toBottomOf="@id/titleText" />
+
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/verticalStartGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/margin_small" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/verticalEndGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/margin_small" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/horizontalStartGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="@dimen/margin_small" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/horizontalEndGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_end="@dimen/margin_small" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

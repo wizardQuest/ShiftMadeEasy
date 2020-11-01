@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <PreferenceCategory
+        app:key="theme_category"
+        app:title="Theme">
+        <SwitchPreferenceCompat
+            app:key="darkTheme"
+            app:title="Enable Dark Theme" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="notification_category"
+        app:title="Notifications">
+        <Preference
+            app:key="notification_settings"
+            app:summary="Customize your notification settings"
+            app:title="Notification Settings"
+            app:fragment="com.pq.shiftmadeeasy.ui.settingsfragment.NotificationSettingsFragment"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="db_backup_category"
+        app:title="Backup">
+        <Preference
+            app:key="create_backup"
+            app:summary="This will create a backup of your data on your device"
+            app:title="Create backup" />
+        <Preference
+            app:key="restore_backup"
+            app:summary="This will restore data from backup on your device"
+            app:title="Restore" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="help_category"
+        app:title="Help">
+        <Preference
+            app:key="feedback"
+            app:summary="Report technical issues or suggest new features"
+            app:title="Send feedback" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="position_array">
+        <item>West</item>
+        <item>South West</item>
+        <item>South East</item>
+        <item>East</item>
+        <item>E2</item>
+        <item>S2</item>
+        <item>L5</item>
+    </string-array>
+</resources>

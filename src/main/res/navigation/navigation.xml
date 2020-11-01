@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/userHomeFragment">
+
+    <fragment
+        android:id="@+id/userHomeFragment"
+        android:name="com.pq.shiftmadeeasy.ui.userhome.UserHomeFragment"
+        android:label="user_home_fragment"
+        tools:layout="@layout/user_home_fragment"
+        >
+        <action
+            android:id="@+id/action_userHomeFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment"
+
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/newUserLandingFragment"
+        android:name="com.pq.shiftmadeeasy.ui.newuserlanding.NewUserLandingFragment"
+        android:label="new_user_landing_fragment"
+        tools:layout="@layout/new_user_landing_fragment">
+        <action
+            android:id="@+id/action_newUserLandingFragment_to_userHomeFragment"
+            app:destination="@id/userHomeFragment"
+            app:popUpTo="@id/newUserLandingFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.pq.shiftmadeeasy.ui.calendarview.CalendarFragment"
+        android:label="calendar_fragment"
+        tools:layout="@layout/calendar_fragment" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.pq.shiftmadeeasy.ui.settingsfragment.SettingsFragment"
+        android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/notificationSettingsFragment"
+        android:name="com.pq.shiftmadeeasy.ui.settingsfragment.NotificationSettingsFragment"
+        android:label="NotificationSettingsFragment" />
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.pq.shiftmadeeasy.ui.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" />
+</navigation>

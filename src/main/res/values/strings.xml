@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Shift Made Easy</string>
+    <string name="empty_title_disclaimer">Title of a task cannot be empty</string>
+    <string name="save">Save</string>
+    <string name="enter_date_text">Date :</string>
+    <string name="log_work">Log Work</string>
+    <string name="enter_from_time">From Time :</string>
+    <string name="enter_to_time">To Time :</string>
+    <string name="hours_title">Hours</string>
+    <string name="cumulative_hours_title">Cumulative Hours</string>
+
+    <string name="snackbar_dismiss_btn_text">Dismiss</string>
+    <string name="snackbar_task_save_msg">Task logged with hours</string>
+    <string name="get_started">Get Started</string>
+    <string name="enter_your_name">Enter your name</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

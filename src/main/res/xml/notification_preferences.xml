@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--Replace code on this screen-->
+    <PreferenceCategory
+        app:key="theme_category"
+        app:title="Theme">
+        <SwitchPreferenceCompat
+            app:key="darkTheme"
+            app:title="Enable Dark Theme" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="db_backup_category"
+        app:title="Backup">
+        <Preference
+            app:key="create_backup"
+            app:summary="This will create a backup of your data on your device"
+            app:title="Create backup" />
+        <Preference
+            app:key="restore_backup"
+            app:summary="This will restore data from backup on your device"
+            app:title="Restore" />
+    </PreferenceCategory>
+</PreferenceScreen>

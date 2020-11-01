@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/toolbarLayout"
+    tools:showIn="@layout/activity_main"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="@dimen/top_toolbar_height"
+        android:layout_width="match_parent"
+        android:background="?themeColor">
+
+        <ImageView
+            android:id="@+id/backButtonId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_smallish"
+            android:src="@drawable/ic_baseline_arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/toolbarTitleId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/backButtonId"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="@dimen/toolbar_title_size"
+            android:layout_marginRight="@dimen/margin_large"
+            app:layout_constraintStart_toEndOf="@id/backButtonId"
+            app:layout_constraintTop_toTopOf="@+id/backButtonId"
+            tools:text="@string/app_name" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
