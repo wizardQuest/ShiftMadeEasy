@@ -3,6 +3,8 @@ package com.pq.shiftmadeeasy.ui.dialogs
 import android.graphics.Point
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -20,7 +22,7 @@ import com.pq.shiftmadeeasy.R
 import com.pq.shiftmadeeasy.adapter.color.ColorListAdapter
 import com.pq.shiftmadeeasy.color.Colors.Companion.getColors
 import com.pq.shiftmadeeasy.localdatabase.shift.Shift
-import com.pq.shiftmadeeasy.ui.calendarview.ShiftRepositoryViewModel
+import com.pq.shiftmadeeasy.ui.calendarview.ShiftAndCalendarRepositoryViewModel
 import com.pq.shiftmadeeasy.ui.viewmodels.ViewModelProviderFactory
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.add_new_shift_dialog.*
@@ -31,7 +33,7 @@ class AddNewShiftDialogFragment : DialogFragment(), ColorListAdapter.Interaction
 
     @Inject
     lateinit var viewModelProviderFactory: ViewModelProviderFactory
-    private val shiftRepositoryViewModel: ShiftRepositoryViewModel by viewModels {
+    private val shiftAndCalendarRepositoryViewModel: ShiftAndCalendarRepositoryViewModel by viewModels {
         viewModelProviderFactory
     }
 
@@ -68,7 +70,7 @@ class AddNewShiftDialogFragment : DialogFragment(), ColorListAdapter.Interaction
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        shiftRepositoryViewModel.getAllShifts().observe(viewLifecycleOwner, Observer { it ->
+        shiftAndCalendarRepositoryViewModel.getAllShifts().observe(viewLifecycleOwner, Observer { it ->
 
         })
         setColorListAdapter()
@@ -106,14 +108,33 @@ class AddNewShiftDialogFragment : DialogFragment(), ColorListAdapter.Interaction
             if (lastPosition != NO_COLOR_SELECTED) {
                 shiftColor = getColors()[lastPosition]
             }
+
+            addNewShiftTitle?.addTextChangedListener(getTextWatcher())
             shiftTitle = addNewShiftTitle?.text?.toString() ?: ""
+            shiftShortForm = addNewShiftShortForm?.text?.toString() ?:""
         }
-        shiftRepositoryViewModel.apply {
+        shiftAndCalendarRepositoryViewModel.apply {
             insert(shift = shift)
         }
         targetFragment?.onActivityResult(targetRequestCode, ADD_SHIFT_RESULT_CODE, null)
         hideKeyboard()
         dialog?.dismiss()
+    }
+
+    private fun getTextWatcher(): TextWatcher? {
+        return object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                TODO("Not yet implemented")
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                TODO("Not yet implemented")
+            }
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.M)

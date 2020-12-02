@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/custom_home_item_view_background"
+    android:paddingTop="@dimen/margin_medium">
+
+
+    <TextView
+        android:id="@+id/titleId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/margin_small"
+        android:text="Select range to repeat shifts"
+        android:textColor="?themePrimaryComplimentaryColor"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.applandeo.materialcalendarview.CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        app:anotherMonthsDaysLabelsColor="@color/grey"
+        app:daysLabelsColor="?themePrimaryComplimentaryColor"
+        app:eventsEnabled="true"
+        app:headerColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleId"
+        app:pagesColor="?windowBackground"
+        app:todayLabelColor="?appSecondaryColor"
+        app:type="range_picker" />
+
+    <Spinner
+        android:id="@+id/setTimelineSelectorSpinnerId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:background="@drawable/blue_outline_background"
+        android:padding="@dimen/margin_small"
+        android:popupBackground="@drawable/blue_outline_background"
+        app:layout_constraintStart_toStartOf="@id/calendarView"
+        app:layout_constraintTop_toBottomOf="@id/calendarView" />
+
+    <Button
+        android:id="@+id/repeatShiftPatterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/margin_medium"
+        android:background="@drawable/btn_click"
+        android:text="Repeat These Shifts"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/calendarView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/setTimelineSelectorSpinnerId" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

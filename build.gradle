@@ -44,6 +44,11 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+    // Gradle automatically adds 'android.test.runner' as a dependency.
+    useLibrary 'android.test.runner'
+
+    useLibrary 'android.test.base'
+    useLibrary 'android.test.mock'
 }
 
 dependencies {
@@ -111,4 +116,7 @@ dependencies {
     //Preferences(For App Settings)
     implementation "androidx.preference:preference:1.1.0"
     implementation 'com.applandeo:material-calendar-view:1.8.0-rc01'
+
+    //Testing
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 }

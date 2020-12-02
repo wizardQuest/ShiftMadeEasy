@@ -4,17 +4,22 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.pq.shiftmadeeasy.localdatabase.calendarwithshift.CustomCalendar
+import com.pq.shiftmadeeasy.localdatabase.calendarwithshift.CustomCalendarDao
+import com.pq.shiftmadeeasy.localdatabase.calendarwithshift.CustomCalendarForRepeatingShifts
+import com.pq.shiftmadeeasy.localdatabase.calendarwithshift.CustomCalendarForRepeatingShiftsDao
 import com.pq.shiftmadeeasy.localdatabase.shift.Shift
 import com.pq.shiftmadeeasy.localdatabase.shift.ShiftDao
 import com.pq.shiftmadeeasy.localdatabase.task.Task
 import com.pq.shiftmadeeasy.localdatabase.task.TaskDao
 
-@Database(entities = [Task::class, Shift::class], version = 2, exportSchema = false)
+@Database(entities = [Task::class, Shift::class, CustomCalendar::class, CustomCalendarForRepeatingShifts::class], version = 3, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract val taskDao: TaskDao
     abstract val shiftDao: ShiftDao
-
+    abstract val customCalendarDao: CustomCalendarDao
+    abstract val customCalendarForRepeatingShiftsDao: CustomCalendarForRepeatingShiftsDao
     companion object {
 
         @Volatile

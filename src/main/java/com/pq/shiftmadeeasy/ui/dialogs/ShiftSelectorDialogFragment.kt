@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.pq.shiftmadeeasy.R
 import com.pq.shiftmadeeasy.adapter.shifts.ShiftListAdapter
 import com.pq.shiftmadeeasy.localdatabase.shift.Shift
-import com.pq.shiftmadeeasy.ui.calendarview.ShiftRepositoryViewModel
+import com.pq.shiftmadeeasy.ui.calendarview.ShiftAndCalendarRepositoryViewModel
 import com.pq.shiftmadeeasy.ui.viewmodels.ViewModelProviderFactory
 import com.pq.shiftmadeeasy.util.TopSpacingDecorator
 import com.pq.shiftmadeeasy.util.getShiftListInOrder
@@ -27,7 +27,7 @@ class ShiftSelectorDialogFragment : DialogFragment(), ShiftListAdapter.Interacti
 
     @Inject
     lateinit var viewModelProviderFactory: ViewModelProviderFactory
-    private val shiftRepositoryViewModel: ShiftRepositoryViewModel by viewModels {
+    private val shiftAndCalendarRepositoryViewModel: ShiftAndCalendarRepositoryViewModel by viewModels {
         viewModelProviderFactory
     }
     private lateinit var shiftListAdapter: ShiftListAdapter
@@ -66,7 +66,7 @@ class ShiftSelectorDialogFragment : DialogFragment(), ShiftListAdapter.Interacti
 
         setShiftListAdapter()
         selectedDate = arguments?.getString(GET_CALENDAR_DATE) ?: ""
-        shiftRepositoryViewModel.getAllShifts().observe(viewLifecycleOwner, Observer { list ->
+        shiftAndCalendarRepositoryViewModel.getAllShifts().observe(viewLifecycleOwner, Observer { list ->
             shiftList = getShiftListInOrder(list)
             shiftListAdapter.submitList(shiftList)
         })

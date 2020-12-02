@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="timeline_options_array">
+        <item>Set for 1 month</item>
+        <item>Set for next 6 months</item>
+        <item>Set for this year</item>
+        <item>Set for 1 month</item>
+        <item>Set for next 6 months</item>
+        <item>Set for this year</item>
+    </string-array>
+</resources>

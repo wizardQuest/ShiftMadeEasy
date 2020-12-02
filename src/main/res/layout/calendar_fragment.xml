@@ -15,6 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:daysLabelsColor="?themePrimaryComplimentaryColor"
+            app:anotherMonthsDaysLabelsColor="@color/grey"
             app:headerColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -27,7 +28,6 @@
             android:id="@+id/shiftsSeparatorViewId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_large"
             android:background="?themePrimaryComplimentaryColor"
             android:orientation="horizontal"
             android:paddingStart="@dimen/margin_medium"
@@ -45,6 +45,19 @@
                 app:layout_constraintBottom_toBottomOf="@+id/addNewShiftButtonId"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/addNewShiftButtonId" />
+            <ImageButton
+                android:id="@+id/minimizeAndMaximizeIconId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_click"
+                android:paddingHorizontal="@dimen/margin_small"
+                android:paddingVertical="@dimen/margin_small"
+                android:paddingStart="@dimen/margin_small"
+                android:paddingEnd="@dimen/margin_small"
+                android:src="@drawable/ic_baseline_library_add_primary"
+                android:outlineAmbientShadowColor="?colorPrimary"
+                app:layout_constraintEnd_toStartOf="@id/addNewShiftButtonId"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/addNewShiftButtonId"
@@ -78,7 +91,6 @@
             android:id="@+id/shiftRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:paddingBottom="40dp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/verticalStartGuideline"

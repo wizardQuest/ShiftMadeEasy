@@ -46,4 +46,8 @@
         android:name="com.pq.shiftmadeeasy.ui.splash.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" />
+    <fragment
+        android:id="@+id/shiftSelectorDialogFragment"
+        android:name="com.pq.shiftmadeeasy.ui.dialogs.ShiftSelectorDialogFragment"
+        android:label="ShiftSelectorDialogFragment" />
 </navigation>

@@ -75,7 +75,8 @@ class ShiftListAdapter(private val interaction: Interaction? = null) :
             shiftIcon?.setImageDrawable(
                 shift.shiftColor?.let {
                     getTextInsideCircleDrawable(
-                        itemView.context, shift.shiftTitle,
+                        itemView.context,
+                        shift.shiftShortForm,
                         it
                     )
                 }

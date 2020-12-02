@@ -21,21 +21,25 @@ open class BaseFragment : Fragment() {
         }
     }
 
-   /* private fun hideToolbar() {
-        (activity as? AppCompatActivity)?.apply {
-            supportActionBar?.hide()
-        }
+    fun bottomNavigationNotRequired() {
+        activity?.hideBottomAppBarFAB()
     }
 
-    private fun showToolbar() {
-        var toolbarTitle = "Settings"
-        (activity as? AppCompatActivity)?.apply {
-            supportActionBar?.apply {
-                title = toolbarTitle
-                setDisplayHomeAsUpEnabled(true)
-                setDisplayShowHomeEnabled(true)
-            }
-            title = toolbarTitle
-        }
-    }*/
+    /* private fun hideToolbar() {
+         (activity as? AppCompatActivity)?.apply {
+             supportActionBar?.hide()
+         }
+     }
+
+     private fun showToolbar() {
+         var toolbarTitle = "Settings"
+         (activity as? AppCompatActivity)?.apply {
+             supportActionBar?.apply {
+                 title = toolbarTitle
+                 setDisplayHomeAsUpEnabled(true)
+                 setDisplayShowHomeEnabled(true)
+             }
+             title = toolbarTitle
+         }
+     }*/
 }

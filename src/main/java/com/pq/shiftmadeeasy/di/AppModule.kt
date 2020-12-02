@@ -4,8 +4,13 @@ import android.app.Application
 import android.content.Context
 import com.pq.shiftmadeeasy.localdatabase.AppDatabase
 import com.pq.shiftmadeeasy.localdatabase.UserLocalDataSource
+import com.pq.shiftmadeeasy.localdatabase.calendarwithshift.CustomCalendar
+import com.pq.shiftmadeeasy.localdatabase.calendarwithshift.CustomCalendarDao
+import com.pq.shiftmadeeasy.localdatabase.calendarwithshift.CustomCalendarForRepeatingShiftsDao
 import com.pq.shiftmadeeasy.localdatabase.shift.ShiftDao
 import com.pq.shiftmadeeasy.localdatabase.task.TaskDao
+import com.pq.shiftmadeeasy.repository.calendar.CalendarRepository
+import com.pq.shiftmadeeasy.repository.calendar.CalendarRepositoryImpl
 import com.pq.shiftmadeeasy.repository.shift.ShiftRepository
 import com.pq.shiftmadeeasy.repository.shift.ShiftRepositoryImpl
 import com.pq.shiftmadeeasy.repository.task.TaskRepositoryImpl
@@ -41,6 +46,18 @@ class AppModule {
 
     @Singleton
     @Provides
+    fun providesCustomCalendarDao(database: AppDatabase): CustomCalendarDao {
+        return database.customCalendarDao
+    }
+
+    @Singleton
+    @Provides
+    fun providesCustomCalendarForRepeatingShiftsDao(database: AppDatabase): CustomCalendarForRepeatingShiftsDao {
+        return database.customCalendarForRepeatingShiftsDao
+    }
+
+    @Singleton
+    @Provides
     fun providesTaskRepository(userLocalDataSource: UserLocalDataSource): TaskRepositoryImpl {
         return TaskRepositoryImpl(
             userLocalDataSource
@@ -51,6 +68,14 @@ class AppModule {
     @Provides
     fun providesShiftRepository(userLocalDataSource: UserLocalDataSource): ShiftRepository {
         return ShiftRepositoryImpl(
+            userLocalDataSource
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun providesCalendarRepository(userLocalDataSource: UserLocalDataSource): CalendarRepository {
+        return CalendarRepositoryImpl(
             userLocalDataSource
         )
     }
