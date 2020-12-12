@@ -2,6 +2,7 @@ package com.pq.shiftmadeeasy.ui.calendarview
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.applandeo.materialcalendarview.EventDay
+import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener
 import com.pq.focuslist.base.gone
 import com.pq.focuslist.base.visible
@@ -33,6 +35,7 @@ import kotlinx.android.synthetic.main.calendar_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class CalendarFragment :
@@ -47,6 +50,9 @@ class CalendarFragment :
     private lateinit var shiftList: MutableList<Shift>
     private lateinit var calendarList: MutableList<CustomCalendarForRepeatingShifts>
     private lateinit var calendarListCustomCalendar: MutableList<CustomCalendar>
+    private lateinit var currentMonthFirstCalendar: Calendar
+    private var rangeTimeInMilliseconds: Long = 0L
+    private lateinit var listOfMonthsAlreadySet: MutableList<Calendar>
 
     @Inject
     lateinit var viewModelProviderFactory: ViewModelProviderFactory
@@ -82,9 +88,11 @@ class CalendarFragment :
                 updateShiftListFlag = false
             }
             shiftList = list
+            currentMonthFirstCalendar = calendarView.currentPageDate
             setCalendar()
             setCustomCalendarList()
         })
+        listOfMonthsAlreadySet = ArrayList()
         setClickListeners()
         setCalendarListeners()
         //calendarViewId?.setBackgroundColor(Colors.BRIGHT_GREEN)
@@ -98,22 +106,38 @@ class CalendarFragment :
     }
 
     private fun setCalendarListeners() {
-        /*val onNextMonthClickListener: OnCalendarPageChangeListener = object : OnCalendarPageChangeListener {
+        val onPreviousMonthClickListener: OnCalendarPageChangeListener =
+            object : OnCalendarPageChangeListener {
                 override fun onChange() {
-                    {
-                        //TODO
-                    }
+                    var currentMonth = Calendar.getInstance()
+                    currentMonthFirstCalendar.add(Calendar.MONTH, -1)
+                    currentMonth.timeInMillis = currentMonthFirstCalendar.timeInMillis
+                    if(isMonthAlreadySet(listOfMonthsAlreadySet, currentMonth))
+                        return
+                    setPreviousMonthCalendarEvents(
+                        currentMonth,
+                        calendarList,
+                        rangeTimeInMilliseconds
+                    )
                 }
             }
-        val onPreviousMonthClickListener: OnCalendarPageChangeListener = object : OnCalendarPageChangeListener {
-            override fun onChange() {
-                {
-                        //TODO
+        val onNextMonthClickListener: OnCalendarPageChangeListener =
+            object : OnCalendarPageChangeListener {
+                override fun onChange() {
+                    var currentMonth = Calendar.getInstance()
+                    currentMonthFirstCalendar.add(Calendar.MONTH, 1)
+                    currentMonth.timeInMillis = currentMonthFirstCalendar.timeInMillis
+                    if(isMonthAlreadySet(listOfMonthsAlreadySet, currentMonth))
+                        return
+                    setNextMonthCalendarEvents(
+                        currentMonth,
+                        calendarList,
+                        rangeTimeInMilliseconds
+                    )
                 }
             }
-        }
         calendarView.setOnForwardPageChangeListener(onNextMonthClickListener)
-        calendarView.setOnPreviousPageChangeListener(onPreviousMonthClickListener)*/
+        calendarView.setOnPreviousPageChangeListener(onPreviousMonthClickListener)
     }
 
     private fun setCalendar() {
@@ -121,22 +145,121 @@ class CalendarFragment :
             .observe(viewLifecycleOwner, { list ->
                 calendarList = list
                 if (list.isNotEmpty()) {
-                    events.removeAll(events)
-                    var rangeTimeInMilliseconds =
+                   // events.removeAll(events)
+                    rangeTimeInMilliseconds =
                         shiftAndCalendarRepositoryViewModel.calculateShiftRange(
                             list.first(),
                             list.last()
                         )
                     list.sortBy { it.calendarTime }
+                    //set previous month Calendar Events
+                    setPreviousMonthCalendarEvents(
+                        calendarView.currentPageDate,
+                        list,
+                        rangeTimeInMilliseconds
+                    )
+                    //set next month Calendar Events
+                    setNextMonthCalendarEvents(
+                        calendarView.currentPageDate,
+                        list,
+                        rangeTimeInMilliseconds
+                    )
                     //Sets events for dates prior to range of CustomCalendarForRepeatingPattern stored in DB
-                    setPreviousMonthCalendarEvents(calendarView.currentPageDate, list, rangeTimeInMilliseconds)
+                    listOfMonthsAlreadySet.add(calendarView.currentPageDate)
+                    setPreviousCalendarEventsForCurrentMonth(
+                        calendarView.currentPageDate,
+                        list,
+                        rangeTimeInMilliseconds
+                    )
                     //Sets events for dates after range of CustomCalendarForRepeatingPattern stored in DB
-                    setNextMonthCalendarEvents(calendarView.currentPageDate, list, rangeTimeInMilliseconds)
+                    setNextCalendarEventsForCurrentMonth(
+                        calendarView.currentPageDate,
+                        list,
+                        rangeTimeInMilliseconds
+                    )
                     //Sets events for dates in range of CustomCalendarForRepeatingPattern stored in DB
                     setRangeCustomCalendarDates(list)
                     calendarView.setEvents(events)
                 }
             })
+    }
+
+    private fun setNextMonthCalendarEvents(
+        currentPageDate: Calendar,
+        list: MutableList<CustomCalendarForRepeatingShifts>,
+        rangeTimeInMilliseconds: Long
+    ) {
+        var nextCalendar = Calendar.getInstance()
+        nextCalendar.timeInMillis = currentPageDate.timeInMillis
+        nextCalendar.add(Calendar.MONTH, +1)
+        nextCalendar.set(Calendar.DAY_OF_MONTH, 1)
+        val firstDateOfNextMonth = nextCalendar.time
+        val lastDateOfNextMoth = nextCalendar.getActualMaximum(Calendar.DAY_OF_MONTH)
+        val firstCalendarDateFromRange = getCalendarDateFromMilliseconds(list.last().calendarTime)
+        var dateAfterRangeInMilli = list.last().calendarTime + 86400000
+        // var list = list.reversed()
+        for (index in 0 until lastDateOfNextMoth) {
+            var timeDiffWithFirstShift = nextCalendar.timeInMillis - list.last().calendarTime
+            var remainderTimeInDays =
+                getTimeAsDay(timeDiffWithFirstShift.rem(rangeTimeInMilliseconds))
+            if (remainderTimeInDays == 0L) {
+                remainderTimeInDays = getTimeAsDay(rangeTimeInMilliseconds)//cyclic
+            }
+            Log.v(
+                "After::",
+                " " + currentMonthFirstCalendar.get(Calendar.MONTH) + " " + nextCalendar.get(
+                    Calendar.MONTH
+                )
+            )
+            var customCalendar = list[remainderTimeInDays.toInt() - 1]
+            val calendar = getCalendarDateFromMilliseconds(nextCalendar.timeInMillis)
+            val filteredShiftList = shiftList.filter { shift ->
+                shift.shiftId == customCalendar.shiftId
+            }
+            addEvent(calendar, filteredShiftList.first())
+            nextCalendar.timeInMillis = getNextDay(nextCalendar.timeInMillis)
+        }
+        listOfMonthsAlreadySet.add(currentPageDate)
+        //nextCalendar.timeInMillis -8400000
+    }
+
+    private fun setPreviousMonthCalendarEvents(
+        currentPageDate: Calendar,
+        list: MutableList<CustomCalendarForRepeatingShifts>,
+        rangeTimeInMilliseconds: Long
+    ) {
+        var previousCalendar = Calendar.getInstance()
+        previousCalendar.timeInMillis = currentPageDate.timeInMillis
+        previousCalendar.add(Calendar.MONTH, -1)
+        previousCalendar.set(Calendar.DAY_OF_MONTH, 1)
+        val firstDateOfPreviousMonth = previousCalendar.time
+        val lastDateOfPreviousMonth = previousCalendar.getActualMaximum(Calendar.DAY_OF_MONTH)
+
+        //val firstCalendarDateFromRange = getCalendarDateFromMilliseconds(list.first().calendarTime)
+        var list = list.reversed()
+        for (index in 0 until lastDateOfPreviousMonth) {
+            var timeDiffWithFirstShift =
+                list.last().calendarTime - previousCalendar.timeInMillis + 86400000
+            var remainderTimeInDays =
+                getTimeAsDay(timeDiffWithFirstShift.rem(rangeTimeInMilliseconds))
+            if (remainderTimeInDays == 0L) {
+                remainderTimeInDays = getTimeAsDay(rangeTimeInMilliseconds)//cyclic
+            }
+            Log.v(
+                "Previous::",
+                index.toString() + " " + currentMonthFirstCalendar.get(Calendar.MONTH) + " " + previousCalendar.get(
+                    Calendar.MONTH
+                ) + " " + remainderTimeInDays.toInt()
+            )
+            var customCalendar = list[remainderTimeInDays.toInt() - 1]
+            val calendar = getCalendarDateFromMilliseconds(previousCalendar.timeInMillis)
+            val filteredShiftList = shiftList.filter { shift ->
+                shift.shiftId == customCalendar.shiftId
+            }
+            addEvent(calendar, filteredShiftList.first())
+            previousCalendar.timeInMillis = getNextDay(previousCalendar.timeInMillis)
+        }
+        listOfMonthsAlreadySet.add(currentPageDate)
     }
 
     private fun setRangeCustomCalendarDates(list: MutableList<CustomCalendarForRepeatingShifts>) {
@@ -150,7 +273,7 @@ class CalendarFragment :
         }
     }
 
-    private fun setNextMonthCalendarEvents(
+    private fun setNextCalendarEventsForCurrentMonth(
         currentPageDate: Calendar,
         list: MutableList<CustomCalendarForRepeatingShifts>,
         rangeTimeInMilliseconds: Long
@@ -165,7 +288,7 @@ class CalendarFragment :
             if (remainderTimeInDays == 0L) {
                 remainderTimeInDays = getTimeAsDay(rangeTimeInMilliseconds)//cyclic
             }
-            var customCalendar = list[remainderTimeInDays.toInt()-1]
+            var customCalendar = list[remainderTimeInDays.toInt() - 1]
             val calendar = getCalendarDateFromMilliseconds(dateAfterRangeInMilli)
             val filteredShiftList = shiftList.filter { shift ->
                 shift.shiftId == customCalendar.shiftId
@@ -175,7 +298,7 @@ class CalendarFragment :
         }
     }
 
-    private fun setPreviousMonthCalendarEvents(
+    private fun setPreviousCalendarEventsForCurrentMonth(
         currentPageDate: Calendar,
         list: MutableList<CustomCalendarForRepeatingShifts>,
         rangeTimeInMilliseconds: Long

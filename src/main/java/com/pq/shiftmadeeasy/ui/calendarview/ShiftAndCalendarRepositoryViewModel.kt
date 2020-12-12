@@ -1,8 +1,10 @@
 package com.pq.shiftmadeeasy.ui.calendarview
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.applandeo.materialcalendarview.EventDay
 import com.pq.shiftmadeeasy.localdatabase.calendarwithshift.CustomCalendar
 import com.pq.shiftmadeeasy.localdatabase.calendarwithshift.CustomCalendarForRepeatingShifts
 import com.pq.shiftmadeeasy.localdatabase.shift.Shift
@@ -18,6 +20,10 @@ class ShiftAndCalendarRepositoryViewModel @Inject constructor(
     private val shiftRepository: ShiftRepositoryImpl,
     private val calendarRepository: CalendarRepositoryImpl
 ) : ViewModel() {
+
+    private var _eventsList = MutableLiveData<List<EventDay>>()
+    val eventsList: LiveData<List<EventDay>>
+        get() = _eventsList
 
     fun insert(shift: Shift) {
         viewModelScope.launch {
@@ -35,7 +41,7 @@ class ShiftAndCalendarRepositoryViewModel @Inject constructor(
         }
     }
 
-    fun updateCalendarForRepeatingShifts(calendarList: List<CustomCalendarForRepeatingShifts>) {
+    private fun updateCalendarForRepeatingShifts(calendarList: List<CustomCalendarForRepeatingShifts>) {
         viewModelScope.launch {
             calendarRepository.updateCalendarForRepeatingShifts(calendarList)
         }
