@@ -1,9 +1,6 @@
 package com.pq.shiftmadeeasy.ui.calendarview
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.applandeo.materialcalendarview.EventDay
 import com.pq.shiftmadeeasy.localdatabase.calendarwithshift.CustomCalendar
 import com.pq.shiftmadeeasy.localdatabase.calendarwithshift.CustomCalendarForRepeatingShifts
@@ -25,14 +22,16 @@ class ShiftAndCalendarRepositoryViewModel @Inject constructor(
     val eventsList: LiveData<List<EventDay>>
         get() = _eventsList
 
+    var allCalendars = calendarRepository.getAllCalendars().asLiveData()
+
+    var allCalendarsForRepeatingShifts = calendarRepository.getAllCalendarsForRepeatingShifts().asLiveData()
+
+    var allShifts= shiftRepository.getAllShifts().asLiveData()
+
     fun insert(shift: Shift) {
         viewModelScope.launch {
             shiftRepository.insert(shift)
         }
-    }
-
-    fun getAllShifts(): LiveData<MutableList<Shift>> {
-        return shiftRepository.getAllShifts()
     }
 
     fun insert(calendar: CustomCalendar) {
@@ -45,14 +44,6 @@ class ShiftAndCalendarRepositoryViewModel @Inject constructor(
         viewModelScope.launch {
             calendarRepository.updateCalendarForRepeatingShifts(calendarList)
         }
-    }
-
-    fun getAllCalendars(): LiveData<MutableList<CustomCalendar>> {
-        return calendarRepository.getAllCalendars()
-    }
-
-    fun getAllCalendarsForRepeatingShifts(): LiveData<MutableList<CustomCalendarForRepeatingShifts>> {
-        return calendarRepository.getAllCalendarsForRepeatingShifts()
     }
 
     fun deleteConflictingCalendarIfPresent(
@@ -94,12 +85,5 @@ class ShiftAndCalendarRepositoryViewModel @Inject constructor(
             calendarTime = customCalendar.calendarTime,
             shiftId = customCalendar.shiftId
         )
-    }
-
-    fun calculateShiftRange(
-        first: CustomCalendarForRepeatingShifts,
-        last: CustomCalendarForRepeatingShifts
-    ): Long {
-        return last.calendarTime - first.calendarTime + 86400000 // 1 day is added since it gives time difference and because of that it gets 1 day less
     }
 }

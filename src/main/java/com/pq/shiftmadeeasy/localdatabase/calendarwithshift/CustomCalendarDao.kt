@@ -6,17 +6,18 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
 import com.pq.shiftmadeeasy.localdatabase.BaseDao
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CustomCalendarDao : BaseDao<CustomCalendar> {
     @Query("select * from calendar_table")
-    fun getAllCalendars(): LiveData<MutableList<CustomCalendar>>
+    fun getAllCalendars(): Flow<MutableList<CustomCalendar>>
 }
 
 @Dao
 interface CustomCalendarForRepeatingShiftsDao : BaseDao<CustomCalendarForRepeatingShifts> {
     @Query("select * from calendar_table_for_repeating_shifts")
-    fun getAllCalendars(): LiveData<MutableList<CustomCalendarForRepeatingShifts>>
+    fun getAllCalendars(): Flow<MutableList<CustomCalendarForRepeatingShifts>>
 
     @Transaction
     open fun updateData(users: List<CustomCalendarForRepeatingShifts>) {

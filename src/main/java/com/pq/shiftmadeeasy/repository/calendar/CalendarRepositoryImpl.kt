@@ -1,9 +1,9 @@
 package com.pq.shiftmadeeasy.repository.calendar
 
-import androidx.lifecycle.LiveData
 import com.pq.shiftmadeeasy.localdatabase.UserLocalDataSource
 import com.pq.shiftmadeeasy.localdatabase.calendarwithshift.CustomCalendar
 import com.pq.shiftmadeeasy.localdatabase.calendarwithshift.CustomCalendarForRepeatingShifts
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class CalendarRepositoryImpl @Inject constructor(private val userLocalDataSource: UserLocalDataSource) :
@@ -21,7 +21,7 @@ class CalendarRepositoryImpl @Inject constructor(private val userLocalDataSource
         userLocalDataSource.deleteCalendarLocally(calendar)
     }
 
-    override fun getAllCalendars(): LiveData<MutableList<CustomCalendar>> {
+    override fun getAllCalendars(): Flow<MutableList<CustomCalendar>> {
         return userLocalDataSource.getAllCalendars()
     }
     override suspend fun deleteAllCalendars() {
@@ -45,7 +45,7 @@ class CalendarRepositoryImpl @Inject constructor(private val userLocalDataSource
         userLocalDataSource.updateCalendarForRepeatingShifts(calendarList)
     }
 
-    override fun getAllCalendarsForRepeatingShifts(): LiveData<MutableList<CustomCalendarForRepeatingShifts>> {
+    override fun getAllCalendarsForRepeatingShifts(): Flow<MutableList<CustomCalendarForRepeatingShifts>> {
         return userLocalDataSource.getAllCalendarsForRepeatingShifts()
     }
 }

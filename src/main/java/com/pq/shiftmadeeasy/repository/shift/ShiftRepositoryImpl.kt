@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.pq.shiftmadeeasy.localdatabase.UserLocalDataSource
 import com.pq.shiftmadeeasy.localdatabase.shift.Shift
 import com.pq.shiftmadeeasy.localdatabase.shift.ShiftWithCalendars
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class ShiftRepositoryImpl @Inject constructor(private val userLocalDataSource: UserLocalDataSource) :
@@ -20,11 +21,11 @@ class ShiftRepositoryImpl @Inject constructor(private val userLocalDataSource: U
         userLocalDataSource.deleteShiftLocally(shift)
     }
 
-    override fun getAllShifts(): LiveData<MutableList<Shift>> {
+    override fun getAllShifts(): Flow<MutableList<Shift>> {
         return userLocalDataSource.getAllShifts()
     }
 
-    override suspend fun getAllShiftsWithCalendar(): LiveData<MutableList<ShiftWithCalendars>> {
+    override suspend fun getAllShiftsWithCalendar(): Flow<MutableList<ShiftWithCalendars>> {
         return userLocalDataSource.getAllShiftsWithCalendar()
     }
 }

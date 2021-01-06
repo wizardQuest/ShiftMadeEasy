@@ -70,7 +70,7 @@ class AddNewShiftDialogFragment : DialogFragment(), ColorListAdapter.Interaction
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        shiftAndCalendarRepositoryViewModel.getAllShifts().observe(viewLifecycleOwner, Observer { it ->
+        shiftAndCalendarRepositoryViewModel.allShifts.observe(viewLifecycleOwner, Observer { it ->
 
         })
         setColorListAdapter()

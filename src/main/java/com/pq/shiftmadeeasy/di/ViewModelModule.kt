@@ -3,6 +3,7 @@ package com.pq.shiftmadeeasy.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.pq.shiftmadeeasy.ui.addtodobottomsheet.AddTodoTaskViewModel
+import com.pq.shiftmadeeasy.ui.calendarview.CalendarViewModel
 import com.pq.shiftmadeeasy.ui.calendarview.ShiftAndCalendarRepositoryViewModel
 import com.pq.shiftmadeeasy.ui.newuserlanding.NewUserLandingViewModel
 import com.pq.shiftmadeeasy.ui.viewmodels.RepositoryViewModel
@@ -35,7 +36,12 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(ShiftAndCalendarRepositoryViewModel::class)
-    abstract fun bindShiftRepositoryViewModel(andCalendarRepositoryViewModel: ShiftAndCalendarRepositoryViewModel): ViewModel
+    abstract fun bindShiftRepositoryViewModel(ShiftAndCalendarRepositoryViewModel: ShiftAndCalendarRepositoryViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CalendarViewModel::class)
+    abstract fun bindCalendarViewModel(CalendarViewModel: CalendarViewModel): ViewModel
     /*
     @Binds
     @IntoMap

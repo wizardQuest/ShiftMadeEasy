@@ -11,6 +11,7 @@ import com.pq.shiftmadeeasy.localdatabase.shift.ShiftWithCalendars
 import com.pq.shiftmadeeasy.localdatabase.task.Task
 import com.pq.shiftmadeeasy.localdatabase.task.TaskDao
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -63,11 +64,11 @@ class UserLocalDataSource @Inject constructor(
         }
     }
 
-    fun getAllShifts(): LiveData<MutableList<Shift>> {
+    fun getAllShifts(): Flow<MutableList<Shift>> {
         return shiftDao.getAllShifts()
     }
 
-    fun getAllShiftsWithCalendar(): LiveData<MutableList<ShiftWithCalendars>> {
+    fun getAllShiftsWithCalendar(): Flow<MutableList<ShiftWithCalendars>> {
         return shiftDao.getAllShiftsWithCalendar()
     }
 
@@ -90,7 +91,7 @@ class UserLocalDataSource @Inject constructor(
         }
     }
 
-    fun getAllCalendars(): LiveData<MutableList<CustomCalendar>> {
+    fun getAllCalendars(): Flow<MutableList<CustomCalendar>> {
         return customCalendarDao.getAllCalendars()
     }
 
@@ -113,7 +114,7 @@ class UserLocalDataSource @Inject constructor(
         }
     }
 
-    fun getAllCalendarsForRepeatingShifts(): LiveData<MutableList<CustomCalendarForRepeatingShifts>> {
+    fun getAllCalendarsForRepeatingShifts(): Flow<MutableList<CustomCalendarForRepeatingShifts>> {
         return customCalendarForRepeatingShiftsDao.getAllCalendars()
     }
 

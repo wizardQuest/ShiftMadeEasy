@@ -66,7 +66,7 @@ class ShiftSelectorDialogFragment : DialogFragment(), ShiftListAdapter.Interacti
 
         setShiftListAdapter()
         selectedDate = arguments?.getString(GET_CALENDAR_DATE) ?: ""
-        shiftAndCalendarRepositoryViewModel.getAllShifts().observe(viewLifecycleOwner, Observer { list ->
+        shiftAndCalendarRepositoryViewModel.allShifts.observe(viewLifecycleOwner, Observer { list ->
             shiftList = getShiftListInOrder(list)
             shiftListAdapter.submitList(shiftList)
         })

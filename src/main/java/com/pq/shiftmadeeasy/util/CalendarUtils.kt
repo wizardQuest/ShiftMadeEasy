@@ -9,30 +9,34 @@ fun getCalendarDateFromMilliseconds(timeInMilliSeconds: Long): Calendar {
     return calendar
 }
 
-fun  isMonthAlreadySet(listOfMonthAlreadySet: List<Calendar>, currentMonthCalendar: Calendar): Boolean{
-    val currentCalendarMonth = getCalendarMonth(currentMonthCalendar)
-    val currentCalendarYear = getCalendarYear(currentMonthCalendar)
-    listOfMonthAlreadySet.forEach {
-        val calendarMonthOfListItem = getCalendarMonth(it)
-        if(calendarMonthOfListItem == currentCalendarMonth){
-            val calendarYearOfListItem = getCalendarYear(it)
-            if(calendarYearOfListItem == currentCalendarYear)
-                return true
-        }
-    }
-    return false
-}
-
 fun getCalendarMonth(calendar: Calendar): Int {
     return calendar.get(Calendar.MONTH)
 }
 
-fun getCalendarYear(calendar: Calendar):Int{
+fun getCalendarYear(calendar: Calendar): Int {
     return calendar.get(Calendar.YEAR)
 }
 
-fun getSimilarCalendarObject(rhsCalendarObject: Calendar): Calendar{
+fun getNewCalendarReplica(calendar: Calendar): Calendar {
+    var newCalendarObject = Calendar.getInstance()
+    newCalendarObject.timeInMillis = calendar.timeInMillis
+    return newCalendarObject
+}
+
+fun getNewCalendarReplica(timeInMilliSeconds: Long): Calendar {
+    var newCalendarObject = Calendar.getInstance()
+    newCalendarObject.timeInMillis = timeInMilliSeconds
+    return newCalendarObject
+}
+
+inline fun Calendar.getNewCalendarReplica(applyFunction: (calendar: Calendar) -> Unit): Calendar{
+    var newCalendarObject = getNewCalendarReplica(this)
+    applyFunction(newCalendarObject)
+    return newCalendarObject
+}
+
+fun Long.getCalendarFromTimeInMilli(): Calendar{
     var calendar = Calendar.getInstance()
-    calendar.timeInMillis = rhsCalendarObject.timeInMillis
+    calendar.timeInMillis = this
     return calendar
 }

@@ -48,7 +48,7 @@ class SetShiftRepeatPatternDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         setSpinnerAdapter()
         setListeners()
-        shiftAndCalendarRepositoryViewModel.getAllShifts().observe(viewLifecycleOwner, { list ->
+        shiftAndCalendarRepositoryViewModel.allShifts.observe(viewLifecycleOwner, { list ->
             shiftList = list
             setCalendar()
         })
@@ -61,7 +61,7 @@ class SetShiftRepeatPatternDialogFragment : DialogFragment() {
     }
 
     private fun setCalendar() {
-        shiftAndCalendarRepositoryViewModel.getAllCalendars().observe(viewLifecycleOwner, { list ->
+        shiftAndCalendarRepositoryViewModel.allCalendars.observe(viewLifecycleOwner, { list ->
             calendarList = list
             list.forEach {
                 val calendar = Calendar.getInstance()
